@@ -25,6 +25,8 @@ import controller.KmersMappingWorker;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 /***
  * Formats the main frame for DisCVR's GUI.
@@ -36,7 +38,7 @@ public class DisCVRApplicationFrame extends JFrame {
 	
 	private static final long serialVersionUID = 1L;	
 	private InputPanel inputPanel;	
-	private ProgressPanel progressPanel;	
+	private ProgressPanel progressPanel;
 	private TextPanel progressText; //to upload progress information
 	private TextPanel summaryText;	//to upload summary results
 	private JPanel scoring;         //to show the viruses with the highest scores
@@ -48,13 +50,15 @@ public class DisCVRApplicationFrame extends JFrame {
 	private ClassificationWorker controller;//to run classification	
 	private AlignmentWorker aligner;       //to run read assembly
 	private KmersMappingWorker kmerAligner;//to run k-mer assembly
+	private DisCVRApplicationFrame appFrame;
 	
 	public static final String DIR_PROPERTY_NAME = "discvrJAR.rootDir";
 	public static final String currentDir = System.getProperty("user.dir");
 	
 	public DisCVRApplicationFrame () {
-		super ("DisCVR"); 
-		
+		super ("DisCVR");
+
+		appFrame = this;
         inputPanel = new InputPanel();		
 		progressPanel = new ProgressPanel();		
 		tablePanel = new TablePanel();		
@@ -89,11 +93,14 @@ public class DisCVRApplicationFrame extends JFrame {
 		inputPanel.setOptionListener(new OptionListener (){
 		    	public void optionEventOccurred(OptionEvent e){
 		    		String actualPath = System.getProperty(DIR_PROPERTY_NAME, currentDir );
-		    		String kAnalyzeDir = actualPath+"/lib";
-		    		
+
+		    		String kAnalyzeDir = actualPath+File.separator+"lib";
+
 		    		//make a directory to hold temp files
-		       	    String savingDir = actualPath+"/TempFiles/";
-		       	   
+					long startTime = System.currentTimeMillis();
+					String timeStamp = DateTimeFormatter.ofPattern("HH-mm-ss").format(LocalTime.now());
+		       	    String savingDir = actualPath+File.separator+"TempFiles-" + timeStamp + File.separator;
+
 		       		File directory = new File(savingDir);
 					if (!directory.exists()) {
 				    	if (directory.mkdir()) {
@@ -102,7 +109,7 @@ public class DisCVRApplicationFrame extends JFrame {
 						   System.err.println("Failed to create temporary folder to hold intermediate files.");
 					    }
 				     }
-		    		 
+
 					//get the parameters for the sample classification from the GUI
 					String sampleFileName = e.getInputFile();
 		       	    String inputFormat = e.getFileFormat();
@@ -110,12 +117,12 @@ public class DisCVRApplicationFrame extends JFrame {
 		       	    String dbLibrary = e.getDbLibrary();
 		       		String kSize = e.getkSize();
 		       		String entropyThrshld = e.getEntropyThrshld();
-		       				       		
+
 		            if(dbOption.equals("BuiltInDB")){
 		            	kSize = "22";
 		            	entropyThrshld= "2.5";
 		            }
-				
+
 		            //make an array of the parameters to pass for the classification process
 		       	      String [] prams = new String [8];
 		              prams [0] = savingDir;
@@ -126,46 +133,46 @@ public class DisCVRApplicationFrame extends JFrame {
 		       	      prams [5] = dbLibrary;
 		       	      prams [6] = dbOption;
 		       	      prams [7] = entropyThrshld;
-		       	      
+
 		       	      tablePanel.reset(); //reset table from previous run
 		          	  summaryText.setText ();
 		          	  progressText.setText ();
 		              scoring.removeAll();
-		            
+
 		              revalidate();
 		              repaint();
-		       	
+
 		        	  tablePanel.setVirusTableListener(new VirusTableListener () {
 		        		public void rowDetected (int row, String virusName, String virusTaxaID, int assemblyOption){
 		        			String referenceGenomesFile = "";
 		        			if(dbOption.equalsIgnoreCase("BuiltInDB")){
-		        				referenceGenomesFile =  "/resources/"+dbLibrary+"_referenceGenomesLibrary";	
+		        				referenceGenomesFile =  File.separator+ "resources" +File.separator+dbLibrary+"_referenceGenomesLibrary";
 		        			}
 		        			if(dbOption.equalsIgnoreCase("customisedDB")){
 		        				Path p = Paths.get(dbLibrary);
 		        				String file = p.getFileName().toString();
 		        				int kSizeIndex = file.indexOf('_');
 		        				String dbName = file.substring(0,kSizeIndex);
-		        				referenceGenomesFile = actualPath+"/customisedDB/"+dbName+"_referenceGenomesLibrary";
+		        				referenceGenomesFile = actualPath+File.separator+"customisedDB"+File.separator+dbName+"_referenceGenomesLibrary";
 			        		}
-		        			//run read Assembly 
+		        			//run read Assembly
 		       			   if(assemblyOption == 1){
-		       				   String [] args = {virusTaxaID, referenceGenomesFile,sampleFileName,dbOption};	
-		       				   aligner = new AlignmentWorker(args,progressText, virusName);		                                
+		       				   String [] args = {virusTaxaID, referenceGenomesFile,sampleFileName,dbOption};
+		       				   aligner = new AlignmentWorker(args,progressText, virusName);
 		                       aligner.execute();
 		       		    	}
-		       			  //run k-mer Assembly 
+		       			  //run k-mer Assembly
                           if(assemblyOption == 2){
-                        	  controller.setMatchedKmersMap();//loads all the matched k-mers 
-                        	  String [] args = {virusTaxaID, referenceGenomesFile,virusName, dbOption};	
-                        	  kmerAligner = new KmersMappingWorker (args,progressText, controller);    		       			
+                        	  controller.setMatchedKmersMap();//loads all the matched k-mers
+                        	  String [] args = {virusTaxaID, referenceGenomesFile,virusName, dbOption};
+                        	  kmerAligner = new KmersMappingWorker (args,progressText, controller);
     		       			  kmerAligner.execute();
-		       			  }		       			
+		       			  }
 		       		}
 		       	});
-		       	
-		         //run classification process 
-		         controller = new ClassificationWorker(prams,progressText,summaryText,scoring,tablePanel,progressPanel);	
+		        inputPanel.disableClassifyButton();
+		         //run classification process
+		         controller = new ClassificationWorker(prams,appFrame);
 		         controller.execute();
 		  }
 		});
@@ -176,7 +183,7 @@ public class DisCVRApplicationFrame extends JFrame {
 		pack();
 		
 		//add the CVR logo to the frame		
-		setIconImage(createIcon("/resources/cvr_logo.gif"));
+		setIconImage(createIcon("cvr_logo.gif"));
 		
 		setSize(800,800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -185,11 +192,33 @@ public class DisCVRApplicationFrame extends JFrame {
 		splitPane2.setDividerLocation(0.5);
 		
 	}
+
+	public void disableClassifyButton(){
+		inputPanel.disableClassifyButton();
+	}
+
+	public void enableClassifyButton(){
+		inputPanel.enableClassifyButton();
+	}
 	
-		
+	public void resetAllFields(){
+		tablePanel.reset(); //reset table from previous run
+		summaryText.setText ();
+		progressText.setText ();
+		scoring.removeAll();
+		progressPanel.setValue(0);
+		inputPanel.resetAll();
+
+
+		revalidate();
+		repaint();
+
+	}
+
+
 	//set the icon for the frame
 	private Image createIcon (String path) {
-		URL url = getClass().getResource(path);		
+		URL url = ClassLoader.getSystemResource(path);
 		if(url == null) {
 			System.err.println("Unable to load image: "+ path);
 		}
@@ -298,6 +327,46 @@ public class DisCVRApplicationFrame extends JFrame {
 		
 		return menuBar;
 	}
-	
- 
+
+	public ProgressPanel getProgressPanel() {
+		return progressPanel;
+	}
+
+	public void setProgressPanel(ProgressPanel progressPanel) {
+		this.progressPanel = progressPanel;
+	}
+
+	public TextPanel getProgressText() {
+		return progressText;
+	}
+
+	public void setProgressText(TextPanel progressText) {
+		this.progressText = progressText;
+	}
+
+	public TextPanel getSummaryText() {
+		return summaryText;
+	}
+
+	public void setSummaryText(TextPanel summaryText) {
+		this.summaryText = summaryText;
+	}
+
+	public JPanel getScoring() {
+		return scoring;
+	}
+
+	public void setScoring(JPanel scoring) {
+		this.scoring = scoring;
+	}
+
+	public TablePanel getTablePanel() {
+		return tablePanel;
+	}
+
+	public void setTablePanel(TablePanel tablePanel) {
+		this.tablePanel = tablePanel;
+	}
+
+
 }

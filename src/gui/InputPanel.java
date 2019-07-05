@@ -228,9 +228,32 @@ public class InputPanel extends JPanel implements ActionListener {
 		}
 		
 	}
+
+	public void disableClassifyButton(){
+		classifyButton.setEnabled(false);
+	}
+
+	public void enableClassifyButton(){
+		classifyButton.setEnabled(true);
+	}
 	
 	public void setFileListener(TextListener listener) {
 		this.fileListener = listener;
+	}
+
+	public void resetAll(){
+		sampleFileField.setText("");
+		dbLibraryGroup.clearSelection();
+		customisedDB.setSelected(false);
+		//default setting: all its fields are disabled
+		dbNameLabel.setEnabled(false);
+		dbNameButton.setEnabled(false);
+		entropyLabel.setEnabled(false);
+
+		dbNameField.setEnabled(false);
+		entropyField.setEnabled(false);
+
+		classifyButton.setEnabled(true);
 	}
 	
 	//formats the panel with the different components
