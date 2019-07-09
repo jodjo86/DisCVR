@@ -1,0 +1,18 @@
+
+Frequently asked questions
+==========================
+
+What operating system does DisCVR work on?
+------------------------------------------
+
+DisCVR has primarily been developed and tested on Windows OS but it has been adapted to also 
+work on MacOS and Linux. It has not received as much testing on the latter two operating systems.
+
+
+What specifications does my computer need to have?
+--------------------------------------------------
+
+DisCVR has been designed with the standard windows desktop in mind which has limited RAM. 
+Your computer should have at least 4Gb RAM.
+
+

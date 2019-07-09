@@ -27,6 +27,8 @@ DisCVR is designed to run on machines with low processing capacity and small mem
    :maxdepth: 2
    :caption: Contents:
 
+   faq
+
 
 Requiremenents
 ==============
