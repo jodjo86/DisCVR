@@ -1,0 +1,160 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>DisCVR Command Line &#8212; DisCVR 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Building custom databases" href="customdb.html" />
+    <link rel="prev" title="Output Validation" href="validation.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="customdb.html" title="Building custom databases"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="validation.html" title="Output Validation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DisCVR 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="validation.html"
+                        title="previous chapter">Output Validation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="customdb.html"
+                        title="next chapter">Building custom databases</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/commandline.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+              <li>DisCVR Command Line</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="discvr-command-line">
+<h1>DisCVR Command Line<a class="headerlink" href="#discvr-command-line" title="Permalink to this headline">¶</a></h1>
+<p>DisCVR can be used to classify multiple samples at once using the command line. In this case, a folder is generated containing the
+results for each sample in a separate .csv file. The results consist of information about the reads in the sample and the full analysis
+of matched <em>k</em>-mers.
+The jar called DisCVR_CL.jar is used to run classifications on more than one file. Refer to the Installation section to download and install the jar and ensure that it is on the same path as <em>DisCVR.jar</em> and the <em>lib</em> folder.
+The following command can be used to run DisCVR_CL.jar to classify multiple files.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java –jar full/path/to/DisCVR_CL.jar &lt;samples folder&gt; &lt;k&gt; &lt;file format&gt; &lt;Database name&gt; &lt;database option&gt; &lt;entropy threshold&gt;
+</pre></div>
+</div>
+<p>&lt;samples folder&gt;: is the full path to the folder which contains sample files to be classified.
+&lt;k&gt;: is the <em>k</em>-mer size.  If using the DisCVR built-in database, use 22
+&lt;file format&gt;: is the format of the sample files e.g. fastq
+&lt;database name&gt;: is the name of the database to be used in the classification. If DisCVR’s built-in database is to be used then use <em>HaemorrhagicVirusDB_22</em>, <em>RespiratoryVirusDB_22</em>, or <em>HSEVirusDB_22</em>. In case of a customisedDB, the full path to the database file must be provided.
+&lt;database option&gt;: if it is one of DisCVR’s database then use <em>BuiltInDB</em> and if it is a customised database file then use <em>customisedDB</em>.
+&lt;entropy threshold&gt;: is the threshold to use to remove low- entropy <em>k</em>-mers. If using DisCVR’s built-in database, for consistency use 2.5.</p>
+<p>Using the command line, DisCVR enables the analysis of multiple clinical samples, however
+validation of the results via reference genome alignment is not available at this stage.</p>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="validation.html" title="previous chapter (use the left arrow)">Output Validation</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="customdb.html" title="next chapter (use the right arrow)">Building custom databases</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="customdb.html" title="Building custom databases"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="validation.html" title="Output Validation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DisCVR 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2019, Maha Maabar and Joseph Hughes. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>
