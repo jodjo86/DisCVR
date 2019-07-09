@@ -39,7 +39,7 @@ Requiremenents
   the viral data sequences are 3GB in size, then the minimum disk space needed to build a
   customised database is 200GB.
 * **Memory**\: DisCVR runs efficiently on a machine with **4GB RAM**, which is the current standard
-  for PCs. It is much faster on machines with higher RAM such as 8GB RAM. However, the
+  for PCs. It is much faster on machines with higher RAM such as **8GB RAM**. However, the
   amount of RAM depends on the number of the sequences used and the size of the k-mer. The
   larger the dataset and the k-mer, the larger the amount of RAM needed. Therefore, in the
   case of “out of memory” errors, the Java heap space should be increased.
@@ -57,7 +57,7 @@ Installation
   * `Command-line for multiple classifications (645Mb) <http://bioinformatics.cvr.ac.uk/DisCVR/Downloads/DisCVR_CL.jar>`_
   * `View source codes on GitHub <https://github.com/centre-for-virus-research/DisCVR>`_ 
   
-* Java: Java (1.8 or above) must be installed and the full path to the jre\/bin folder should be
+* Java: **64-bit Java (1.8 or above)** must be installed and the full path to the jre\/bin folder should be
   included in the system variables. Java can be downloaded from:
   `Link to Oracle <http://www.oracle.com/technetwork/java/javase/downloads/jre8-
   downloads-2133155.html>`_
@@ -72,8 +72,7 @@ Installation
   and the folders: bin, customisedDB, and TestData which are needed to build a customised
   database.
   
-  **IMPORTANT**\: The full path to DisCVR directory must NOT contain space nor the dot ‘.’ to avoid
-  conflict with the files naming during the classification process.
+
 * Dependencies: DisCVR uses external libraries such as KAnalyze, for k-mers counting, and
   JFreechart packages, for graphs plotting. It makes use of Tanoti, a Blast-based tool for
   reference assembly. These are 10 files in total and they are in the lib folder. It is important
