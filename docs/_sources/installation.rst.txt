@@ -23,7 +23,7 @@ Installation
   
   * `Windows OS (771Mb) <http://bioinformatics.cvr.ac.uk/DisCVR/Downloads/DisCVR_Windows.zip>`_
   * `Linux OS (786Mb) <http://bioinformatics.cvr.ac.uk/DisCVR/Downloads/DisCVR_Linux.tar.gz>`_
-  * `Mac OS (793Mb) <http://bioinformatics.cvr.ac.uk/DisCVR/Downloads/DisCVR_Mac.tar.gz>`_ 
+  * `Unix (818Mb) - tested on MacOS and Ubuntu <http://bioinformatics.cvr.ac.uk/DisCVR/Downloads/DisCVR_Unix.zip>`_ 
   * `Command-line for multiple classifications (645Mb) <http://bioinformatics.cvr.ac.uk/DisCVR/Downloads/DisCVR_CL.jar>`_
   * `View source codes on GitHub <https://github.com/centre-for-virus-research/DisCVR>`_ 
   
