@@ -24,7 +24,7 @@ Customised Database
 DisCVR allows the users to build their own customised database from a list of viruses that are of interest. This section explains 
 the steps to generate the users customised database files. Refer to the Installation section to ensure the required tools are downloaded 
 and installed properly before proceeding to customise your *k*-mers database. The NCBI files, i.e. *names.dmp* and *nodes.dmp*, must be copied 
-to the *customisedDB* folder. The NCBI website ([https://www.ncbi.nlm.nih.gov](https://www.ncbi.nlm.nih.gov)) is used for downloading the data. The following table lists all 
+to the *customisedDB* folder. The NCBI website (`https://www.ncbi.nlm.nih.gov <https://www.ncbi.nlm.nih.gov>`_) is used for downloading the data. The following table lists all 
 the files and parameters needed to build a customised database.
 
 ====================== ====================================================================================================

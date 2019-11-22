@@ -47,6 +47,15 @@ Installation
   reference assembly. These are 10 files in total and they are in the lib folder. It is important
   not to alter the lib folder or its contents and to ensure that it is in the same path as the jar file.
 
+* Compiling the source code: The easiest way to compile the source codes is to use the Ant Apache build tool 
+  which is a free software and easy to install (`https://ant.apache.org <https://ant.apache.org/>`_). The build.xml file is included with the source codes 
+  which is used to compile all the files before creating the jar. Once the Ant tool is installed you need to add the build.xml 
+  file to the same path as the source code and use the command:
+  ``ant```
+  Ant will take care of compiling all the files and sorting out dependencies on external libraries. 
+  In that sense, you only need to modify the build.xml file to achieve your goals from compiling the source codes. 
+  The `Customised Database section <customdb.rst>`_ in the operating manual has a detailed example of how to compile and 
+  create the GUI using your own database.
 
 Testing
 =======

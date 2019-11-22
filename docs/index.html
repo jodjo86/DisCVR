@@ -1,1 +1,163 @@
-<meta http-equiv="refresh" content="0; url=build/html/index.html" />
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Welcome to DisCVR’s documentation! &#8212; DisCVR 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Requiremenents" href="installation.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="installation.html" title="Requiremenents"
+             accesskey="N">next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">DisCVR 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+  <h4>Next topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="next chapter">Requiremenents</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="#">Docs</a></li>
+              
+              <li>Welcome to DisCVR’s documentation!</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="welcome-to-discvr-s-documentation">
+<h1>Welcome to DisCVR’s documentation!<a class="headerlink" href="#welcome-to-discvr-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>DisCVR is a viral detection tool which allows the identification of known human viruses in clinical
+samples from high-throughput sequencing (HTS) data. It uses the k-mers approach in which the
+sample reads are decomposed into <em>k</em>-mers and then matched against a virus k-mers database. The
+built-in database is a list consists of all <em>k</em>-mers (<em>k</em>=22) that are not low-complexity and only found in
+the viral genomes but not in the human genome. Each <em>k</em>-mer is assigned the taxonomic label of all
+viral genomes that contain that <em>k</em>-mer in the NCBI taxonomy tree. These assignments are made at the
+species and strains taxonomic level.</p>
+<p>DisCVR has a user-friendly Graphical User Interface (GUI) which runs the analysis on the sample and
+shows the results interactively. It enables the visualisation of the coverage of the virus genomes found
+in the sample in order to validate the significance of the results. In addition, DisCVR is a generic tool
+which can be used with other non-human viruses by facilitating the build and use of customised kmers
+database.</p>
+<p>DisCVR is designed to run on machines with low processing capacity and small memory.</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Requiremenents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html#testing">Testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gui.html">Quick GUI overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classification.html">DisCVR Built-in Databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classification.html#discvr-classification">DisCVR Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="classification.html#classification-output">Classification Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html">Output Validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html#discvr-command-line">DisCVR Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html#building-custom-databases">Building custom databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validation.html#customised-database">Customised Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="commandline.html">DisCVR Command Line</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customdb.html">Building custom databases</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customdb.html#customised-database">Customised Database</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently asked questions</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="installation.html" title="next chapter (use the right arrow)">Requiremenents</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="installation.html" title="Requiremenents"
+             >next</a> |</li>
+        <li class="nav-item nav-item-0"><a href="#">DisCVR 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2019, Maha Maabar and Joseph Hughes. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>
