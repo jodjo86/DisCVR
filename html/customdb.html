@@ -1,0 +1,414 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Building custom databases &#8212; DisCVR 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Frequently asked questions" href="faq.html" />
+    <link rel="prev" title="DisCVR Command Line" href="commandline.html" />
+  
+   
+
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="faq.html" title="Frequently asked questions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="commandline.html" title="DisCVR Command Line"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DisCVR 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <h2>Contents</h2>
+    <div class="sidebar-localtoc">
+      <ul>
+<li><a class="reference internal" href="#">Building custom databases</a></li>
+<li><a class="reference internal" href="#customised-database">Customised Database</a><ul>
+<li><a class="reference internal" href="#data-download">Data Download</a></li>
+<li><a class="reference internal" href="#database-files-generation">Database Files Generation</a></li>
+<li><a class="reference internal" href="#reference-genome-library">Reference Genome Library</a></li>
+<li><a class="reference internal" href="#virus-k-mers-database">Virus <em>k</em>-mers database</a></li>
+<li><a class="reference internal" href="#data-filtering-optional">Data Filtering (Optional)</a></li>
+<li><a class="reference internal" href="#k-mers-database-file"><em>k</em>-mers database file</a></li>
+<li><a class="reference internal" href="#an-example">An example</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+  </div>
+</div>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="commandline.html"
+                        title="previous chapter">DisCVR Command Line</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="faq.html"
+                        title="next chapter">Frequently asked questions</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/customdb.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+              <li>Building custom databases</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="building-custom-databases">
+<h1>Building custom databases<a class="headerlink" href="#building-custom-databases" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>If you want to build a customised database, the following NCBI tools and files must be
+downloaded and installed:<ul>
+<li>The NCBI eutilities tools are used to download data. The tools can be found on <a class="reference external" href="ftp://ftp.ncbi.nlm.nih.gov/entrez/entrezdirect/">NCBI eutlities</a>. The full
+path to the edirect folder should be added to the system variables</li>
+<li>The NCBI taxdump files are used for taxonomy information retrieval when building a
+customised database. The file can be downloaded from <a class="reference external" href="ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/">NCBI taxonomy</a>. The file taxdump.tar.gz
+should be downloaded and unzipped. The two files: names.dmp and nodes.dmp MUST
+be copied to the customised database folder: customisedDB which is in the same path
+as DisCVR.jar.</li>
+</ul>
+</li>
+<li>To see if eutilities tools is added to the path: <code class="docutils literal notranslate"><span class="pre">esearch</span></code>
+This should state``Must supply -db database on command line```</li>
+</ul>
+</div>
+<div class="section" id="customised-database">
+<h1>Customised Database<a class="headerlink" href="#customised-database" title="Permalink to this headline">¶</a></h1>
+<p>DisCVR allows the users to build their own customised database from a list of viruses that are of interest. This section explains
+the steps to generate the users customised database files. Refer to the Installation section to ensure the required tools are downloaded
+and installed properly before proceeding to customise your <em>k</em>-mers database. The NCBI files, i.e. <em>names.dmp</em> and <em>nodes.dmp</em>, must be copied
+to the <em>customisedDB</em> folder. The NCBI website (<a class="reference external" href="https://www.ncbi.nlm.nih.gov">https://www.ncbi.nlm.nih.gov</a>) is used for downloading the data. The following table lists all
+the files and parameters needed to build a customised database.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Files/Parameters</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Input File</td>
+<td>A file containing information about the set of viruses to build the database from</td>
+</tr>
+<tr class="row-odd"><td>NCBI Taxdump Files</td>
+<td>Two files (<em>names.dmp</em> and <em>nodes.dmp</em>) to be downloaded into the customisedDB folder</td>
+</tr>
+<tr class="row-even"><td>Host genomes file</td>
+<td>A fasta file containing the host DNA sequences</td>
+</tr>
+<tr class="row-odd"><td>Entropy threshold</td>
+<td>A number in the range [0,3] to act as a low-complexity threshold</td>
+</tr>
+<tr class="row-even"><td>Data Location</td>
+<td>The path to the folder containing the data to build the database from</td>
+</tr>
+<tr class="row-odd"><td>Name of the database</td>
+<td>The given name to the customised database. This should be a single word that does NOT contain (_)</td>
+</tr>
+<tr class="row-even"><td>K size</td>
+<td>The length of <em>k</em>-mers to be used in the build of the database.</td>
+</tr>
+<tr class="row-odd"><td>Number of threads</td>
+<td>The number of threads to use during the build of the database.</td>
+</tr>
+<tr class="row-even"><td>File counter</td>
+<td>The number of virus files to process at one time during the build of the database.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Table 1: Files and parameters needed to build DisCVR’s customised database</em></p>
+<p>The process starts by providing a list of the viruses of interest and the information of their complete genomes, if they exist. This input is a tab-delimited
+file which contains the taxonomy ID of the virus and the accession number for its reference sequence. In DisCVR, the three built-in databases use only human
+viral sequences at the species and subspecies levels on the taxonomy tree. However, the customised-database does not require the viruses to be of a particular
+rank in the taxonomy tree nor the host to be human. In addition, the input file should not have duplicate taxonomy IDs but multiple taxonomy IDs in the list
+can have the same reference sequence. Table 2 shows an example of the input file.</p>
+<p><strong>IMPORTANT:</strong> the accession number of the virus reference sequence MUST be the exact accession number provided in the header of the reference sequence.</p>
+<p>There are three steps to build the customised database which must be executed sequentially:</p>
+<ol class="arabic simple">
+<li>Data Download; which involves obtaining the data required to build the two database files.</li>
+<li>Generating the reference genome library file using the information of the reference sequences.</li>
+<li>Generating the virus <em>k</em>-mers database from the downloaded sequences.</li>
+</ol>
+<table border="1" class="docutils">
+<colgroup>
+<col width="3%" />
+<col width="12%" />
+<col width="85%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Taxid</th>
+<th class="head">Accession Number</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>121791</td>
+<td>NC_002728.1</td>
+<td>The virus taxonomy ID is followed by the accession number of the virus’s reference sequence.</td>
+</tr>
+<tr class="row-odd"><td>499556</td>
+<td>NC_010563.1,NC_010562.1</td>
+<td>It is a segmented virus. The accession numbers for the reference sequences segments are comma-separated and listed in order so that the first segment is the largest.</td>
+</tr>
+<tr class="row-even"><td>11598</td>
+<td>&#160;</td>
+<td>Only the virus taxonomy ID is provided because the virus does not have a reference sequence.</td>
+</tr>
+</tbody>
+</table>
+<p><em>Table 2: An example of the input file for the customised database builds stage. Left column shows an example of a line in the input file. Right column explains the components of the line.</em></p>
+<div class="section" id="data-download">
+<h2>Data Download<a class="headerlink" href="#data-download" title="Permalink to this headline">¶</a></h2>
+<p>The first step in building the database is to obtain the viral sequences for the viruses of interest. The script downloadDataAndRefSeq.sh
+uses the eutilities tools to download the data from the NCBI using the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash downloadDataAndRefSeq.sh &lt;taxIDs_List&gt; &lt;outputDir&gt;
+</pre></div>
+</div>
+<p>&lt;taxIDs_List&gt;: the input file which contains the virus taxonomy IDs and their reference sequence information.
+&lt;outputDir&gt;: the name of the directory for the downloaded data.</p>
+<p>After executing the script, the output directory will have two sub-directories:</p>
+<ol class="lowerroman simple">
+<li><strong>DataSeq</strong> which contains the data to be used to build the virus <em>k</em>-mers file, and</li>
+<li><strong>RefSeq</strong> which contains the data to create the reference sequence library file.</li>
+</ol>
+<p>Each file in both directories includes in its name the taxonomy ID (taxID) of the virus whose data is
+contained in the file. The <strong>DataSeq</strong> directory has two corresponding files for each taxID:</p>
+<ol class="lowerroman simple">
+<li>Virus_taxID.fa is a fasta file which contains all complete and partial viral sequences for the virus with the taxID, and</li>
+<li>Virus_taxID_Info which contains information for the sequences in the corresponding fasta file. The first line states the number of sequences found on NCBI for the taxID followed by information for each sequence. This includes Accession number, title, gi header, update date, length of the sequence, the subtype, and strain.</li>
+</ol>
+<p>Similarly, the <strong>RefSeq</strong> directory contains files for each taxID which has information of its reference sequence in the input file.
+The files which are called Virus_taxID_RefSeq.fa are fasta files that contain one or more sequences (in the case of segmented viruses).
+Information files are used to identify segmented viruses, in the case of <strong>RefSeq</strong>, and to filter out shared sequences, in the case of <strong>DataSeq</strong>.</p>
+<p><strong>IMPORTANT:</strong> ensure that the files in both RefSeq and DataSeq folders are NOT empty. If any of the file are empty, re-run the data download
+script with an input file that contains only the information for the taxIDs with empty files.</p>
+</div>
+<div class="section" id="database-files-generation">
+<h2>Database Files Generation<a class="headerlink" href="#database-files-generation" title="Permalink to this headline">¶</a></h2>
+<p>Java programs are used to generate the two files in the database. These Java programs are found in the folder called ‘bin’.</p>
+</div>
+<div class="section" id="reference-genome-library">
+<h2>Reference Genome Library<a class="headerlink" href="#reference-genome-library" title="Permalink to this headline">¶</a></h2>
+<p>The reference genome library file is used in the validation stage of DisCVR and it contains the reference sequences for the viruses
+in the input file. The reference sequences are identified in the input file by their accession numbers and the corresponding sequences are
+downloaded in the RefSeq directory. The Java program <em>GenomesLibrary</em> is used to generate the reference genome library using the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java –cp ./bin customdatabase.GenomesLibrary &lt;taxIDs_List&gt; &lt;database_Name&gt; &lt;RefSeq_Dir&gt;
+</pre></div>
+</div>
+<p>&lt;taxIDs_List&gt;: the input file which contains the virus taxonomy IDs and their reference sequence information.
+&lt;database_Name&gt;: is the name to be given to the customised database
+&lt; RefSeq_Dir &gt;: is the full path of the RefSeq folder which contains all downloaded data for the reference sequences.</p>
+<p>The output file is called: databaseName_referenceGenomesLibrary and it is in the <strong>RefSeq</strong> folder. Each line in the file consists of
+a virus taxonomy ID, the header, and the sequence of its complete genome. The delimiter “&#64;” is used to separate the three components.
+In the case where the reference sequence is a concatenation of multiple segments, the headers are separated by a comma and the sequences
+are separated by a sequence, 300 in length, of the letter N. For the viruses which share the same reference sequence (i.e. species level
+and their sublevels are assigned the same reference sequence) then their taxonomy IDs are separated with a pipe sign “|”.</p>
+<p>The output file MUST be copied to the <em>customisedDB</em> folder to be used for DisCVR’s validation when using the customised <em>k</em>-mers database.</p>
+</div>
+<div class="section" id="virus-k-mers-database">
+<h2>Virus <em>k</em>-mers database<a class="headerlink" href="#virus-k-mers-database" title="Permalink to this headline">¶</a></h2>
+<p>The last step to build the customised database is to generate the file which contains the virus <em>k</em>-mers. In the generation of DisCVR’s
+built-in database files, a filtering step was used to remove shared sequences between a virus and its ancestors in the taxonomy tree.
+This is an optional step which can be used in the build of the customised database to reduce redundancy in the data and to increase virus
+specificity.</p>
+</div>
+<div class="section" id="data-filtering-optional">
+<h2>Data Filtering (Optional)<a class="headerlink" href="#data-filtering-optional" title="Permalink to this headline">¶</a></h2>
+<p>The filtering process removes shared sequences from the ancestors’ data. For example, if sequences are found in both the strain and the species
+levels, then they are removed from the sequences at the species level. It is recommended to keep a copy of the data in the <strong>DataSeq</strong> directory
+before executing this step to avoid loss of data. The NCBI dump files (i.e. names.dmp and nodes.dmp) are used in this step and they MUST be
+included in the customisedDB folder. The Java program DataSequences is used to filter the downloaded sequences using the following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir &lt;DataSeq_filtered&gt;
+cp -r &lt;DataSeq_Dir&gt; &lt;DataSeq_filtered&gt;
+java –cp ./bin customdatabase.DataSequences &lt;DataSeq_Dir&gt; &lt;genomes_file&gt; &lt;database_Name&gt;
+</pre></div>
+</div>
+<p>&lt; DataSeq_Dir&gt;: is the full path for the DataSeq folder which contains the viruses’ data (fasta and Info files).
+&lt;DataSeq_filtered&gt;: is the full path for the folder which contains the filtered data.
+&lt;genomes_file&gt;: is the full path for the referenceGenomeLibrary which is generated from the previous step.
+&lt;database_Name&gt;: is the name to be given to the customised database.</p>
+<p>After executing the program, the sequence files (i.e. fasta files) for the viruses which are ranked at a higher taxonomic level to
+other sequences in the <strong>DataSeq</strong> directory are modified, if they contain shared sequences. The output file: databaseName_lineageID.txt
+shows, per line, the taxID of a virus followed by the taxIDs of higher taxonomic level. In addition, a file which contains summary
+information about the viruses in the database such as their rank in the taxonomy tree and the number of sequences per virus, after
+filtering, is generated. The file is called: databaseName_DataInformation.csv.</p>
+<p>Finally, an output file called: databaseName_allSeqData is generated and it contains all the sequences, after filtering, from
+all the data files in the directory. The three output files can be found in the <strong>DataSeq</strong> directory.</p>
+</div>
+<div class="section" id="k-mers-database-file">
+<h2><em>k</em>-mers database file<a class="headerlink" href="#k-mers-database-file" title="Permalink to this headline">¶</a></h2>
+<p>The final step in the customised database build is to generate the virus <em>k</em>-mers database file from the downloaded viral sequences.
+In this step, <em>k</em>-mers from the viral sequences and from the host genomes are extracted. Low entropy and host <em>k</em>-mers are then removed
+from the virus <em>k</em>-mers. The remaining set of virus <em>k</em>-mers are assigned the taxIDs of all the viruses which are represented by these
+<em>k</em>-mers. Table 3 shows an example of the virus <em>k</em>-mer database file.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="12%" />
+<col width="43%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"><em>k</em>-mer</th>
+<th class="head">count</th>
+<th class="head">taxids</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>AAAAACAAGAATGGACAC</td>
+<td>2</td>
+<td>11620 1</td>
+</tr>
+<tr class="row-odd"><td>AAAAACAATGGGCTCTAT</td>
+<td>5</td>
+<td>1980486 1980491 2</td>
+</tr>
+</tbody>
+</table>
+<p><em>Table 3: An example of the virus k-mers database file. Each line contains a k-mer of size 18, the number of times it occurs in the viral sequence, and a list of taxIDs of the viruses which the k-mer is extracted from. The last number in the line indicates whether the k-mer occurs in a single virus (e.g. 1) or in multiple related viruses (e.g. 2).</em></p>
+<p>The virus <em>k</em>-mers database file is generated by using the following command and it is saved to the <em>customisedDB</em> folder.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>java –cp ./bin customdatabase.KmersDatabaseBuild
+</pre></div>
+</div>
+<p>&lt;DataSeq_Dir&gt; &lt;host_file&gt; &lt;kmersDB_file&gt; &lt;k_size&gt; &lt;num_threads&gt; &lt;entropy_threshold&gt; &lt;files_counter&gt;
+&lt;DataSeq_Dir&gt;: full path to the directory which contains a copy of the downloaded data (fasta files).
+&lt;host_file&gt;: full path to the host genomes fasta file.
+&lt;kmersDB_file&gt;: name to be given to the customised <em>k</em>-mers database file.
+&lt;k_size&gt;: <em>k</em>-mer size.
+&lt;num_threads&gt;: number of threads to use when counting <em>k</em>-mers from the virus files. We recommend using 2
+&lt;entropy_threshld&gt;: entropy threshold to filter out low-entropy <em>k</em>-mers. Use 0 to omit this option.
+&lt;files_counter&gt;: number of data files to process at once during taxonomy labelling. It is recommended to use 10 to optimise memory use.</p>
+</div>
+<div class="section" id="an-example">
+<h2>An example<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h2>
+<p>This section shows an example of the whole process to create the customised <em>k</em>-mers database files. The NCBI dump files:
+<em>names.dmp</em> and <em>nodes.dmp</em> must be downloaded from the NCBI into the <em>customisedDB</em> folder before starting the process.
+In addition, the <em>lib</em> folder must be in the same directory as the <em>customisedDB</em> folder. The input files provided in
+the <em>TestData</em> are used in this example. There are two input files:</p>
+<ol class="arabic simple">
+<li>miniDB_sample.txt: contains information of the viruses used to build the <em>k</em>-mers database.</li>
+<li>HumanGenomesTest.fa: contains an example of the host sequences</li>
+</ol>
+<p>The process starts by downloading the data from the NCBI and generating the reference genome file. Filtering of shared
+sequences is then applied on a copy of the viral sequences. The last step is creating the virus <em>k</em>-mers database with
+k size equals to 18 and 0 entropy threshold. The number of threads to count <em>k</em>-mers is 2 and the number of files to
+process at once is 10. The given name for the customised database files in this example is “miniDB_sample”.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash downloadDataAndRefSeq.sh ./TestData/miniDB_sample.txt ./TestData/miniDB_sample/
+mkdir ./TestData/miniDB_sample/DataSeq_filtered
+cp -r ./TestData/miniDB_sample/DataSeq/* ./TestData/miniDB_sample/DataSeq_filtered
+java -cp ./bin customdatabase.GenomesLibrary ./TestData/miniDB_sample.txt miniDB ./TestData/miniDB_sample/RefSeq/
+cp ./TestData/miniDB_sample/RefSeq/miniDB_referenceGenomesLibrary ./customisedDB/
+java -cp ./bin customdatabase.DataSequences ./TestData/miniDB_sample/DataSeq_filtered ./TestData/miniDB_sample/RefSeq/miniDB_referenceGenomesLibrary miniDB
+java -cp ./bin customdatabase.KmersDatabaseBuild ./TestData/miniDB_sample/DataSeq_filtered/ ./TestData/HumanGenomesTest.fa miniDB_Kmers_18 <span class="m">18</span> <span class="m">2</span> <span class="m">0</span> <span class="m">10</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="commandline.html" title="previous chapter (use the left arrow)">DisCVR Command Line</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="faq.html" title="next chapter (use the right arrow)">Frequently asked questions</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="faq.html" title="Frequently asked questions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="commandline.html" title="DisCVR Command Line"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">DisCVR 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2019, Maha Maabar and Joseph Hughes. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>
