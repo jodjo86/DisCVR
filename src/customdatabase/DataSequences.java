@@ -50,8 +50,6 @@ public class DataSequences {
                	
 		String namesFile = actualPath+"/customisedDB/names.dmp";
     	String nodesFile = actualPath+"/customisedDB/nodes.dmp";
-    	System.out.println(namesFile);
-		System.out.println(nodesFile);
     	
     	
     	/*output files */
@@ -269,7 +267,6 @@ public void printVirusInfo(String [] virusInfo, String fileName){
 		}
 	    
 	    File sourceFile = new File(sourcePath);
-	    // Does not seem to delete the sourceFile after instantiating it.
 	    sourceFile.delete();
 	}
 
@@ -468,7 +465,6 @@ public void printVirusInfo(String [] virusInfo, String fileName){
 			Set<Integer> taxaIdSet =taxIDSeqMap.keySet();
 			int num =0; //to keep track of number of parents
 			for(int id : taxIDSeqMap.keySet()){
-				System.out.println(id);
 				ArrayList<Integer> parentsList = getFullLineage(id, virusParentMap);
 				
 				//check the parents list is not empty
@@ -551,8 +547,6 @@ public void printVirusInfo(String [] virusInfo, String fileName){
 	/*returns an arrayList contains the full lineage of a taxaID from a tree map.*/
 	public ArrayList<Integer> getFullLineage (int taxaID, TreeMap<Integer,Integer> parent_map)
 	{
-		System.out.println(taxaID);
-		System.out.println(parent_map.get(taxaID));
 		int aParent = parent_map.get(taxaID).intValue();
 	           
 	    ArrayList<Integer> a_path = new ArrayList<Integer>(100);
