@@ -97,7 +97,7 @@ public class DataSequences {
 		 * to be used for filtering common sequences
 		 */	
 		System.out.println("Printing virus ancestor's list...");
-		TreeMap<Integer,ArrayList<Integer>> parentsIDsMap =ds.getParentsList(nodesFile,files,taxIdSeqMap,parentFile);
+		TreeMap<Integer,ArrayList<Integer>> parentsIDsMap = ds.getParentsList(nodesFile,files,taxIdSeqMap,parentFile);
 		
 		/*Step 7:
 		 * filter out common sequences between a virus taxID and its LCA
@@ -267,6 +267,7 @@ public void printVirusInfo(String [] virusInfo, String fileName){
 		}
 	    
 	    File sourceFile = new File(sourcePath);
+	    sourceFile.delete();
 	}
 
 	/*returns a map of all taxIDs in a file and their rank, taken from the VirusRankMap
@@ -464,8 +465,7 @@ public void printVirusInfo(String [] virusInfo, String fileName){
 			Set<Integer> taxaIdSet =taxIDSeqMap.keySet();
 			int num =0; //to keep track of number of parents
 			for(int id : taxIDSeqMap.keySet()){
-				
-				ArrayList<Integer> parentsList = getFullLineage (id, virusParentMap);
+				ArrayList<Integer> parentsList = getFullLineage(id, virusParentMap);
 				
 				//check the parents list is not empty
 				if(parentsList == null){
