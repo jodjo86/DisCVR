@@ -26,3 +26,7 @@ hs_err_pid*
 *.fasta
 *.fq
 *.fq.gz
+
+# Ajout pour le projet
+build/
+dist/
