@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.CopyOption;
 
 import utilities.PermutationFiles;
 import controller.VirusResult;
@@ -281,7 +284,7 @@ private void classifySample (String []parameters) {
 	String databaseName= parameters[5];//"HaemorrhagicVirusDB"
 	String dbOption = parameters [6]; //"BuiltInDB" to use DisCVR's db or "customisedDB" to use user's db
 	String entropyThrshld = parameters [7]; //specifies the entropythreshold 
-	
+
 	int permsPower = 5; //default setting for  the permutations used to split large files
 	String currentDir = System.getProperty("user.dir");
 	String outputDir = currentDir+"/ClassificationResults_"+kSize+"_"; //create a directory to hold results output
@@ -300,13 +303,13 @@ private void classifySample (String []parameters) {
 	 +"There are "+kC.getNumKmers()+" distinct K-mers in the file. The sum of their counts is "+kC.getTotalKmersCounts()+".\n"
 	 +"There are "+kC.getGoodKmers()+" K-mers in the file with count > 1. The sum of their counts is "+kC.getTotalGoodKmers()+".\n"
 	 +"There are "+kC.getBadKmers()+" K-mers in the file with count 1.\n";
-	 	 
+	 System.out.println(sampleInfo); //Donne info supplementaire
 	 System.out.println("******************************************");
 	 System.out.println("Splitting sample and database k-mers into smaller batches...");
 	 
 	 String statement=sampleFileSplitting (savingDir,sampleKmersFile, "s", kSize, permsPower);
-	 //System.out.println(statement);
-	 
+	//System.out.println(statement);
+
 	 String databaseKmersFile= "";		 
 	 if (dbOption.equals("BuiltInDB")){
 		 databaseKmersFile= databaseName;
@@ -318,8 +321,8 @@ private void classifySample (String []parameters) {
 		Path p = Paths.get(databaseName);
 		String file = p.getFileName().toString();
 		int kSizeIndex = file.indexOf('_');
-		String filename = file.substring(0,kSizeIndex);
-		outputDir = outputDir+filename;
+		String filename = file.substring(0,kSizeIndex); //dbFraise200309
+		outputDir = outputDir+filename;//D:\DisCVR_Windows/ClassificationResults_22_dbFraise200309 //Joel
 	 }
 		 
 	 String fileNamePrefix = savingDir+"db"+"Kmers_"; //prefix for all file names
@@ -328,9 +331,9 @@ private void classifySample (String []parameters) {
 	 System.out.println("******************************************");
 	 System.out.println("Matching Sample k-mers with the Database k-mers...");
 	 //matching sample k-mers with database k-mers in all small files
-	 int extIndex = sampleFile.indexOf('.');
-	 int fNameIndex = sampleFile.lastIndexOf('/');
-	 String filename = sampleFile.substring(fNameIndex+1,extIndex);
+	 int extIndex = sampleFile.indexOf('.'); // 24
+	 int fNameIndex = sampleFile.lastIndexOf('\\'); // Correction ici pour Windows
+	 String filename = sampleFile.substring(fNameIndex+1,extIndex); // A_merge
 	 
 	 //create the output Dir 
 	 File file = new File(outputDir);
@@ -343,7 +346,7 @@ private void classifySample (String []parameters) {
       }
 	  
       String outFile = outputDir+"/"+filename+"_ClassificationOutput_"+kSize+".csv";
-	  
+
 	  SampleKmersMatching sKM =new SampleKmersMatching();
 	  setKM(sKM);
 	  int []numOfMatches = sKM.searchForKmersMatches(savingDir, Integer.parseInt(kSize), permsPower, filename);
@@ -357,14 +360,27 @@ private void classifySample (String []parameters) {
 	  int hours = (int)((duration / (1000*60*60)) % 24);
 		
 	  String timeText = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-		
+
 	  sampleInfo +="Time taken (hh:mm:ss): "+timeText+"\n\n";
 	   
 	   System.out.println("******************************************");
 	   System.out.println("Printing classification results...");
 	   String matchFileName = savingDir+"allMatchedKmers_"+filename+"_"+kSize;
+
 	   printingMatchingResults2(matchFileName,sampleInfo, databaseKmersFile,dbOption,outFile);
-		
+	   
+	   //backup allMatchedKmers file 
+	   String matchFileName2 = outputDir+"/"+"allMatchedKmers_"+filename+"_"+kSize;
+	   
+	   Path sourceFile = Paths.get(matchFileName);
+	   Path targetFile = Paths.get(matchFileName2);
+	   try {
+		   Files.copy(sourceFile, targetFile,
+		   StandardCopyOption.REPLACE_EXISTING);
+	   } catch (IOException ex) {
+		   System.err.format("I/O Error when copying file");
+	   }
+	
 	   //deleting temp folder
 	   System.out.println("******************************************");
 	   System.out.println("Removing temporary folders...");
