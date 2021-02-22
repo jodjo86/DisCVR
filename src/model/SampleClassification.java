@@ -332,7 +332,8 @@ private void classifySample (String []parameters) {
 	 System.out.println("Matching Sample k-mers with the Database k-mers...");
 	 //matching sample k-mers with database k-mers in all small files
 	 int extIndex = sampleFile.indexOf('.'); // 24
-	 int fNameIndex = sampleFile.lastIndexOf('\\'); // Correction ici pour Windows
+	 // int fNameIndex = sampleFile.lastIndexOf('\\'); // Correction ici pour Windows
+	 int fNameIndex = sampleFile.lastIndexOf('/'); // Correction ici pour Linux
 	 String filename = sampleFile.substring(fNameIndex+1,extIndex); // A_merge
 	 
 	 //create the output Dir 
