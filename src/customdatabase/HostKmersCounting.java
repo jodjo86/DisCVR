@@ -62,7 +62,7 @@ private void runHostKmersCounting(String [] parms) 	{
 
         //human genomes is big. It is better to use 3G for java heap
         String command = "java -Xmx3g -jar "+kAnalyzeDir+"/kanalyze.jar count  -k "+kSize+
-    			" -o "+ kmersOutputFile+" -f fasta"+" "+inputFile+" -rcanonical";
+    			" -o "+ kmersOutputFile+" -f auto"+" "+inputFile+" -rcanonical";
        
         try {
 			proc = rt.exec(command);
