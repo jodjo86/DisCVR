@@ -196,7 +196,9 @@ java -cp ./bin  customdatabase.GenomesLibrary \
     <nom de la BD> \
     <dossier Seq de référence>
 ```
-    Le fichier "Pdt_variantPVY_referenceGenomesLibrary" ; doit être copié dans "/customisedDB"
+
+Le fichier "Pdt_variantPVY_referenceGenomesLibrary" ; doit être copié dans "/customisedDB"
+
 ```
 cp ./importdb/dbPdt/RefSeq/Pdt_variantPVY_referenceGenomesLibrary ./customisedDB/
 ```
@@ -275,10 +277,10 @@ TOTAL_COUNTS_K-MERS
 
 ## Traitement optionel des fichier fastq
 
-Comme dit précédamment, il est possible de réduire la taille des fichiers fastq et d'accélérer la détection virale. La figure 1 présente les différentes approche de prétraitement des fichiers fastq. La taille des fichiers est proportoniel au temps d'analyse de DisCVR. À noté que tous les fichiers (fastq et fasta) sont toujours légérement compressé sans perte avec gzip (fichier gz; les archives tgz ne sont pas compatible). De plus, chaque étape de réduction de la taille (Figure 1, en jaune) entraine la perte d'information (qualité des séquence ou séquence du génome de l'hôte).
+Comme dit précédamment, il est possible de réduire la taille des fichiers fastq et d'accélérer la détection virale. La figure 1 présente les différentes approche de prétraitement des fichiers fastq. La taille des fichiers est proportionnel au temps d'analyse de DisCVR. À noter, que tous les fichiers (fastq et fasta) sont toujours compressés sans perte avec gzip (fichier gz; les archives tgz ne sont pas compatible). De plus, chaque étape de réduction de la taille (Figure 1, en orange) entraine la perte d'information (qualité des séquences ou séquence du génome de l'hôte).
 
 ![alt text](https://github.com/jodjo86/files/blob/main/diagram.svg?raw=true)
-*Figure 1. Diagrame du traitement des fichiers FastQ avec FastQ Screen et SeqTk.*
+*Figure 1. Diagrame du traitement des fichiers FastQ avec FastQ Screen et SeqTk (tous les fichiers sont compressés en gz).*
 
 1. FastQ Screen 
 ```
