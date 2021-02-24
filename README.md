@@ -275,14 +275,18 @@ TOTAL_COUNTS_K-MERS
 | P097 | NTNa | 1408 | 1951 | **38495** | 246 |
 | P026 | PVY-O | 201 | **349745** | 20515 | 933 |
 
-## Traitement optionel des fichier fastq
+## Traitement optionel des fichiers fastq
 
 Comme dit précédamment, il est possible de réduire la taille des fichiers fastq et d'accélérer la détection virale. La figure 1 présente les différentes approche de prétraitement des fichiers fastq. La taille des fichiers est proportionnel au temps d'analyse de DisCVR. À noter, que tous les fichiers (fastq et fasta) sont toujours compressés sans perte avec gzip (fichier gz; les archives tgz ne sont pas compatible). De plus, chaque étape de réduction de la taille (Figure 1, en orange) entraine la perte d'information (qualité des séquences ou séquence du génome de l'hôte).
+
+Il y a une légère baisse du "NUMBER_OF_DISTINCT_K-MERS" et du "TOTAL_COUNTS_K-MERS" suite aux différents traitements mais cette baisse est minime (1% en moyenne).
 
 ![alt text](https://github.com/jodjo86/files/blob/main/diagram.svg?raw=true)
 *Figure 1. Diagrame du traitement des fichiers FastQ avec FastQ Screen et SeqTk (tous les fichiers sont compressés en gz).*
 
 1. FastQ Screen 
+
+    **Attention très long (1-2h)**
 ```
 fastq_screen --nohits --conf ./fastq_screen.conf XXX.fastq.gz
 ```
