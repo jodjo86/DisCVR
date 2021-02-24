@@ -1,4 +1,4 @@
-# Exemple du workflow actuel pour la detection de virus
+# Exemple du workflow actuel pour la détection de virus
 **Projet 400128- SHD Virus
 2021-02-19**
 
