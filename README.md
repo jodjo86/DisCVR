@@ -128,7 +128,7 @@ Cet étape est optionel et ne peut être réalisé seulement si FastQScreen a é
     ```
     bowtie2-build ./host/genomePdt.fna ./host/genomePdt
     rm ./host/genomePdt.fna
-    wget -O ./host/fastq_screen.conf \ 
+    wget -O ./host/fastq_screen.conf \
         https://raw.githubusercontent.com/jodjo86/files/main/fastq_screen.conf
     ```
 
@@ -136,7 +136,7 @@ Cet étape est optionel et ne peut être réalisé seulement si FastQScreen a é
 Pour cet exemple, la liste de variant de PVY est : PVY-N, PVY-O, PVY-NTN et PVY-NWi. Le format du sichier est le suivant: un variant/virus par ligne, commencer par le taxID de NCBI, suivi des no d'accession des séquences de références séparé par des vigule. Le taxID et les no d'acession sont séparé par une tabulation.
     ```
     mkdir ./importdb/dbPdt
-    wget -O ./importdb/dbPdt/variantPVY.txt \ 
+    wget -O ./importdb/dbPdt/variantPVY.txt \
         https://raw.githubusercontent.com/jodjo86/files/main/variantPVY.txt
     ```
 
