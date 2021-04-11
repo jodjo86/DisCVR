@@ -23,12 +23,6 @@
 	   <fileset dir="resources">
 	  	    <include name="**"/>
 	   </fileset>
-  	   <!--fileset dir="images">
-  		  	    <include name="**"/>
-  	   </fileset-->
-  	   <!--pathelement location="../lib/httpunit.jar"/>
-  	   <pathelement location="../lib/Tidy.jar"/>
-  	   <pathelement location="../lib/xerces.jar"/-->
   </path>
  	
   <!-- Deletes the existing build, docs and dist directory -->
@@ -92,10 +86,6 @@
 <target name="set-perms" >
  <chmod file="${dist.lib.dir}/**" perm="775" type="both"/>
  <chmod file="${dist.customisedDB.dir}/**" perm="775" type="both"/>
- <!--chmod  perm="ou+rx">
-   <fileset dir="${dist.dir}/{lib.dir}" >
-   </fileset>
- </chmod-->
 </target>
 
 <!--Creates the deployable jar file  -->
@@ -112,13 +102,11 @@
 	      <zipfileset src="${basedir}/lib/jcommon-1.0.23.jar"/>
 	      <zipfileset src="${basedir}/lib/kanalyze.jar" />
 	      <zipfileset src="${basedir}/lib/java-getopt-1.0.14.jar" />
-	      <!--zipfileset dir="${basedir}/resources" prefix="resources" includes="**"/-->
 	     </jar>
 	  </target>
 
 <target name="gui-jar" depends="compile, copy-lib, copy-res, copy-externalLibraries, set-perms">
 	  
-	    <!--jar destfile="${classes.dir}/DisCVR.jar" basedir="${classes.dir}"-->
              <jar destfile="${dist.dir}/DisCVR.jar" basedir="${classes.dir}">
 	      <manifest>
 	        <attribute name="Main-Class" value="gui.DisCVRApp" />
@@ -129,7 +117,6 @@
 	      <zipfileset src="${basedir}/lib/jcommon-1.0.23.jar"/>
 	      <zipfileset src="${basedir}/lib/kanalyze.jar" />
 	      <zipfileset src="${basedir}/lib/java-getopt-1.0.14.jar" />
-	      <!--zipfileset dir="${basedir}/resources" prefix="resources" includes="**"/-->
 	     </jar>
 	  </target>
 
