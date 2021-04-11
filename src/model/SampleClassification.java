@@ -39,10 +39,7 @@ public class SampleClassification {
     private int [] highestScoresSpecific;
     private int [] highestScoresShared;
     
-    //classification constructor when using DisCVR's GUI
-	public SampleClassification(){		
-	}
-	
+
 	//classification process when using command line
 	public SampleClassification(String []prams) {
 		classifySample(prams);
@@ -95,10 +92,6 @@ public String getSummaryText(){
 	}
 	
 	//get the classification results in terms of virus info and their scores 
-	//to be used by DisCVR's GUI
-	public String printingMatchingResults(String matchFile,String dbFile,String dbOption) {
-		 return setVirusResultsList (dbFile,dbOption,matchFile);
-	}
 	
 	//get the classification results in terms of virus info and their scores
 	//to be used when a folder of samples is supplied and not using DisCVR's GUI	
@@ -240,39 +233,6 @@ private void setVirusResultsList2 (String dbFile,String dbOption, String matchFi
 		}		
 }
 
-
-//Extracts information from classification output (used with DisCVR's GUI)
-private String setVirusResultsList (String dbFile,String dbOption, String matchFile) {
-		virusResults = new ArrayList<VirusResult>();
-		
-		//sets up the virus names, virus ranks, and db-kmers treemaps
-        ClassificationOutput classOutput = new ClassificationOutput(dbOption);
-        classOutput.setDBIDsMap(dbFile,dbOption);
-      
-        //sets up the matchedkmers, distinct(=specific), and shared (=non specific) 
-        int [] numOfKmers=classOutput.setKmersTrees(matchFile);
-      
-        allMatchedKmers = classOutput.getAllMatchedKmers();
-      
-        virusResults = classOutput.getVirusMapResults ();
-		
-		for(VirusResult v:virusResults){
-			v.setPercentage(v.getDisKmers(),kC.getGoodKmers(), 0); //First is % of distinct k-mers
-			v.setPercentage(v.getTotKmers(), kC.getTotalGoodKmers(), 1); //Second is % of total k-mers
-		}
-		
-		String results =classOutput.printVirusMapResults();
-        
-		String summaryResults = classOutput.getSummaryMaps ();
-        summary =classOutput.formatSummaryText(summaryResults);
-        
-        highestScoresNames = classOutput.getHighestScoresName();
-        highestScoresSpecific = classOutput.getHighestScoresSpecific();
-        highestScoresShared = classOutput.getHighestScoresShared();
-
-      return results ;    
-		
-	}
 
 private void classifySample (String []parameters) {
 	
