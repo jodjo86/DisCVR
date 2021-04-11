@@ -58,7 +58,7 @@ public class PermutationFiles {
 			  in = new BufferedReader(new InputStreamReader(dbFileURL.openStream()));			  
 			}
 			if(dbOption.equalsIgnoreCase("customisedDB")){
-			  in = new BufferedReader (new FileReader(dbFileName));
+			  in = new BufferedReader(new FileReader(dbFileName));
 			  
 			}
 			boolean ok = false; //signals the start of a new file

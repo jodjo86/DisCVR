@@ -267,8 +267,8 @@ private void classifySample (String []parameters) {
 	 System.out.println("******************************************");
 	 System.out.println("Splitting sample and database k-mers into smaller batches...");
 	 
-	 String statement=sampleFileSplitting (savingDir,sampleKmersFile, "s", kSize, permsPower);
-	//System.out.println(statement);
+	 String statement=sampleFileSplitting(savingDir,sampleKmersFile, "s", kSize, permsPower);
+	// System.out.println(statement);
 
 	 String databaseKmersFile= "";		 
 	 if (dbOption.equals("BuiltInDB")){
@@ -286,8 +286,8 @@ private void classifySample (String []parameters) {
 	 }
 		 
 	 String fileNamePrefix = savingDir+"db"+"Kmers_"; //prefix for all file names
-	 statement=dbFileSplitting (databaseKmersFile, fileNamePrefix, dbOption, "db",permsPower);
-	 
+	 statement=dbFileSplitting(databaseKmersFile, fileNamePrefix, dbOption, "db", permsPower);
+
 	 System.out.println("******************************************");
 	 System.out.println("Matching Sample k-mers with the Database k-mers...");
 	 //matching sample k-mers with database k-mers in all small files
